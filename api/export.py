@@ -1,16 +1,9 @@
-"""
-GET /api/export
-Download all transactions as a CSV file.
-"""
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
 from http.server import BaseHTTPRequestHandler
 from lib.db import init_db, metrics
 
-
 class handler(BaseHTTPRequestHandler):
-
     def do_GET(self):
         try:
             init_db()
@@ -35,5 +28,4 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
 
-    def log_message(self, *args):
-        pass
+    def log_message(self, *a): pass
