@@ -1,0 +1,12 @@
+{
+  "note": "All records below are fictional demonstration data.",
+  "user": {"name": "Prajwal Yadav", "currency": "INR"},
+  "categories": ["Salary", "Freelance", "Food", "Transport", "Housing", "Shopping", "Health", "Education", "Entertainment", "Utilities"],
+  "budgets_inr": {"Food": 8500, "Transport": 3500, "Housing": 12000, "Shopping": 5000, "Health": 2500, "Education": 3000, "Entertainment": 2500, "Utilities": 2200},
+  "savings_goals": [
+    {"name": "Emergency fund", "target_amount": 60000, "saved_amount": 24500},
+    {"name": "New laptop", "target_amount": 75000, "saved_amount": 31200},
+    {"name": "Travel fund", "target_amount": 40000, "saved_amount": 16800}
+  ],
+  "seed_period_days": 90
+}

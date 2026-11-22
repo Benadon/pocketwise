@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PocketWise · AI Finance Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- ───── SIDEBAR ───── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <a class="brand" href="#overview">
+      <span class="brand-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="brand-text">pocket<span>wise</span></span>
+    </a>
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Collapse sidebar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <span class="nav-label">WORKSPACE</span>
+  <nav class="main-nav">
+    <a href="#overview"      data-route="overview"      class="nav-item active">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/></svg>
+      <span>Overview</span>
+    </a>
+    <a href="#transactions"  data-route="transactions"  class="nav-item">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="none"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Transactions</span>
+    </a>
+    <a href="#budgets"       data-route="budgets"       class="nav-item">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="none"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Budgets</span>
+    </a>
+    <a href="#goals"         data-route="goals"         class="nav-item">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Savings Goals</span>
+    </a>
+    <a href="#insights"      data-route="insights"      class="nav-item">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="none"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Insights</span>
+      <span class="badge-new">NEW</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="profile-card">
+      <div class="avatar-lg" id="sidebar-avatar">PY</div>
+      <div class="profile-info">
+        <strong id="profile-name">Loading…</strong>
+        <span>Personal account</span>
+      </div>
+      <button class="theme-btn" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <svg class="ico-sun" viewBox="0 0 24 24" fill="none" width="16" height="16"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="ico-moon" viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- ───── MAIN ───── -->
+<div class="main-wrap" id="main-wrap">
+  <header class="topbar">
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="breadcrumb">
+      <span>Workspace</span>
+      <span class="bc-sep">/</span>
+      <strong id="crumb-current">Overview</strong>
+    </div>
+    <div class="topbar-right">
+      <span class="live-dot-wrap"><span class="live-dot"></span>Live data</span>
+      <button class="theme-btn-top" id="theme-toggle-top" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <svg class="ico-sun" viewBox="0 0 24 24" fill="none" width="16" height="16"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="ico-moon" viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="avatar-sm">PY</div>
+    </div>
+  </header>
+
+  <main id="page-content" class="page-content">
+    <div class="splash-loader">
+      <div class="splash-ring"></div>
+      <p>Loading your snapshot…</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    PocketWise is an educational prototype. Insights are rule-based and are not financial advice.
+  </footer>
+</div>
+
+<!-- ───── MODALS ───── -->
+<div class="modal-backdrop" id="modal-backdrop"></div>
+
+<div class="modal" id="contribute-modal" role="dialog" aria-modal="true">
+  <div class="modal-header">
+    <h3>Add savings</h3>
+    <button class="modal-close" id="modal-close">✕</button>
+  </div>
+  <div class="modal-body">
+    <p id="contribute-label" class="modal-desc"></p>
+    <div class="field">
+      <label for="contribute-amount">Amount (₹)</label>
+      <input id="contribute-amount" type="number" min="1" step="100" placeholder="e.g. 2000">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+    <button class="btn btn-primary" id="modal-confirm">Add contribution</button>
+  </div>
+</div>
+
+<!-- ───── TOAST ───── -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

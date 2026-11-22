@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/*.py", "use": "@vercel/python" },
+    { "src": "public/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/data",         "dest": "/api/data.py"         },
+    { "src": "/api/transactions", "dest": "/api/transactions.py" },
+    { "src": "/api/budgets",      "dest": "/api/budgets.py"      },
+    { "src": "/api/goals",        "dest": "/api/goals.py"        },
+    { "src": "/api/contribute",   "dest": "/api/contribute.py"   },
+    { "src": "/api/export",       "dest": "/api/export.py"       },
+    { "src": "/api/export\\.csv", "dest": "/api/export.py"       },
+    { "src": "/(.*\\.(js|css|ico|png|svg|woff2?))", "dest": "/public/$1" },
+    { "src": "/(.*)",             "dest": "/public/index.html"   }
+  ]
+}
