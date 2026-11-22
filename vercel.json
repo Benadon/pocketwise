@@ -1,12 +1,7 @@
 {
-  "version": 2,
-  "outputDirectory": "public",
-  "rewrites": [
-    { "source": "/api/data",         "destination": "/api/data.py"         },
-    { "source": "/api/transactions", "destination": "/api/transactions.py" },
-    { "source": "/api/budgets",      "destination": "/api/budgets.py"      },
-    { "source": "/api/goals",        "destination": "/api/goals.py"        },
-    { "source": "/api/contribute",   "destination": "/api/contribute.py"   },
-    { "source": "/api/export",       "destination": "/api/export.py"       }
-  ]
+  "functions": {
+    "api/*.py": {
+      "runtime": "vercel-python@4.3.0"
+    }
+  }
 }
