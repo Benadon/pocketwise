@@ -1,17 +1,22 @@
-import json, sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import json
 from http.server import BaseHTTPRequestHandler
-from lib.db import init_db, metrics
+from _db import init_db, metrics
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
             init_db()
-            self._json(metrics(), 200)
+            self._ok(metrics())
         except Exception as e:
-            self._json({'error': str(e)}, 500)
+            self._err(str(e))
 
-    def _json(self, obj, status):
+    def _ok(self, obj):
+        self._send(200, obj)
+
+    def _err(self, msg):
+        self._send(500, {'error': msg})
+
+    def _send(self, status, obj):
         body = json.dumps(obj).encode()
         self.send_response(status)
         self.send_header('Content-Type', 'application/json')

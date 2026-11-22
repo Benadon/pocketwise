@@ -1,7 +1,6 @@
-import json, sys, os, datetime
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import json, datetime
 from http.server import BaseHTTPRequestHandler
-from lib.db import init_db, metrics, get_conn, get_category, _rows_as_dicts
+from _db import init_db, metrics, get_conn, cols
 
 class handler(BaseHTTPRequestHandler):
     def do_OPTIONS(self):
@@ -10,7 +9,7 @@ class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             init_db()
-            b      = json.loads(self.rfile.read(int(self.headers.get('Content-Length', 0))) or b'{}')
+            b      = json.loads(self.rfile.read(int(self.headers.get('Content-Length',0))) or b'{}')
             name   = str(b['category'])
             kind   = str(b['kind'])
             amount = float(b['amount'])
@@ -19,20 +18,21 @@ class handler(BaseHTTPRequestHandler):
             if amount <= 0 or not desc: raise ValueError('Check amount and description.')
             datetime.date.fromisoformat(date)
             conn = get_conn()
-            cat  = get_category(conn, name, kind)
-            if not cat: raise ValueError('Invalid category for this transaction type.')
-            conn.run(
-                "INSERT INTO transactions(user_id,category_id,kind,amount,description,transaction_date) VALUES(1,:c,:k,:a,:d,:dt)",
-                c=cat['id'], k=kind, a=amount, d=desc, dt=date
-            )
+            rows = conn.run("SELECT id,kind FROM categories WHERE name=:n", n=name)
+            if not rows: raise ValueError('Category not found.')
+            c = cols(conn)
+            cat = dict(zip(c, rows[0]))
+            if cat['kind'] != kind: raise ValueError('Wrong category type.')
+            conn.run("""INSERT INTO transactions(user_id,category_id,kind,amount,description,transaction_date)
+                VALUES(1,:c,:k,:a,:d,:dt)""", c=cat['id'], k=kind, a=amount, d=desc, dt=date)
             conn.close()
-            self._json({'ok': True, 'data': metrics()}, 200)
+            self._send(200, {'ok': True, 'data': metrics()})
         except (ValueError, KeyError, TypeError) as e:
-            self._json({'error': str(e)}, 400)
+            self._send(400, {'error': str(e)})
         except Exception as e:
-            self._json({'error': str(e)}, 500)
+            self._send(500, {'error': str(e)})
 
-    def _json(self, obj, status):
+    def _send(self, status, obj):
         body = json.dumps(obj).encode()
         self.send_response(status)
         self.send_header('Content-Type', 'application/json')
@@ -41,7 +41,7 @@ class handler(BaseHTTPRequestHandler):
 
     def _cors(self):
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Methods', 'POST,OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
 
     def log_message(self, *a): pass
